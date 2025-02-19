@@ -1,0 +1,134 @@
+<!-- This is just for referecne, copy this layout for company pages -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title><%= title %></title>
+
+        <!-- Common links -->
+        <%- include("../../common/common-links.ejs")%>
+
+        <!-- Company common links -->
+
+        <!-- Common scripts -->
+        <%-include("../../common/common-scripts.ejs")%>
+
+        <!-- Company common scripts -->
+        <%- include("../../common/common-company-scripts.ejs")%>
+
+        <script
+            src="/javascripts/handlers/company/dashboardHandler.js"
+            type="module"
+            defer></script>
+    </head>
+    <body>
+        <%- include("../../components/navs/company-navbar.ejs")%>
+
+        <main>
+            <section class="section shortlisted-candidates-section">
+                <div class="container">
+                    <!--  -->
+
+                    <div class="relative bg-white mt-4 overflow-hidden sm:rounded-md">
+                        <div class="sticky top-0">
+                            <div class="sm:flex sm:items-center">
+                                <div class="sm:flex-auto">
+                                    <h1 class="text-xl font-semibold text-gray-900">
+                                        Shortlisted Candidates
+                                    </h1>
+                                    <!-- <p class="mt-2 text-sm text-gray-700"></p> -->
+                                </div>
+                                <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+                                    <a
+                                        href="/job"
+                                        class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">
+                                        Job Openings
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <% if (shortlistedCandidates?.length == 0) { %>
+                            <h2 class="text-center text-gray-500 mt-12 text-3xl">No shortlisted candidates found.</h2>
+                        <% } else { %>
+                            <ul data-role="shortlisted-candidate-list" role="list" class="mt-4 divide-y shadow divide-gray-200">
+                                <% shortlistedCandidates.forEach(function(candidate, index) { %>
+                                    <li>
+                                        <a href="/candidate/c/<%= candidate.id %>" class="block hover:bg-gray-50">
+                                            <div class="flex items-center px-4 py-4 sm:px-6">
+                                                <div class="min-w-0 flex-1 flex items-center">
+                                                    <div class="flex-shrink-0">
+                                                        <img class="h-12 w-12 rounded-full"
+                                                             src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                             alt="" />
+                                                    </div>
+                                                    <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+                                                        <div>
+                                                            <p class="text-sm font-medium text-indigo-600 truncate">
+                                                                <%= candidate.name %>
+                                                            </p>
+                                                            <p class="mt-2 flex items-center text-sm text-gray-500">
+                                                                <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
+                                                                     xmlns="http://www.w3.org/2000/svg"
+                                                                     viewBox="0 0 20 20"
+                                                                     fill="currentColor"
+                                                                     aria-hidden="true">
+                                                                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                                                                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                                                                </svg>
+                                                                <span class="truncate"><%= candidate.email %></span>
+                                                                <span class="truncate">
+                                                                    &nbsp; EXPERIENCE: <%= candidate.years_of_experience %> yrs
+                                                                </span>
+                                                            </p>
+                                                        </div>
+                                                        <div class="hidden md:block">
+                                                            <div>
+                                                                <p class="text-sm text-gray-900">Skills</p>
+                                                                <p class="mt-2 flex items-center text-sm text-gray-500">
+                                                                    <% if (candidate.candidate_skills && candidate.candidate_skills.length > 0) { %>
+                                                                        <% candidate.candidate_skills.forEach(function(skill) { %>
+                                                                            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-green-400"
+                                                                                 xmlns="http://www.w3.org/2000/svg"
+                                                                                 viewBox="0 0 20 20"
+                                                                                 fill="currentColor"
+                                                                                 aria-hidden="true">
+                                                                                <path fill-rule="evenodd"
+                                                                                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                                                                      clip-rule="evenodd"/>
+                                                                            </svg>
+                                                                            <span><%= skill.skill_name %></span>
+                                                                        <% }) %>
+                                                                    <% } else { %>
+                                                                        <span>No skills listed</span>
+                                                                    <% } %>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <svg class="h-5 w-5 text-gray-400"
+                                                         xmlns="http://www.w3.org/2000/svg"
+                                                         viewBox="0 0 20 20"
+                                                         fill="currentColor"
+                                                         aria-hidden="true">
+                                                        <path fill-rule="evenodd"
+                                                              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                                              clip-rule="evenodd"/>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                <% }); %>
+                            </ul>
+                        <% } %>
+                        
+                    </div>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>

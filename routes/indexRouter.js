@@ -5,10 +5,10 @@ var indexRouter = express.Router();
 
 
 // VIEWS  CALLS
-indexRouter.get('/', viewsRouter)
+indexRouter.use('/', viewsRouter)
 
 // PURE BACKEND CALLS
-indexRouter.get('/api/v1', apiRouter);
+indexRouter.use('/api/v1', apiRouter);
 
 
 module.exports = indexRouter;

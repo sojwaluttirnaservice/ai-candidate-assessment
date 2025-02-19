@@ -1,4 +1,4 @@
-const sequelize = require("../config/database"); // Import database connection
+const sequelize = require("../config/sequelize");
 const Sequelize = require("sequelize");
 
 // Define the Skill schema
@@ -12,7 +12,7 @@ const skillSchema = sequelize.define("skill", {
     },
 
     skill_name: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(100),
         allowNull: false,
         unique: true,
         validate: {
@@ -20,13 +20,6 @@ const skillSchema = sequelize.define("skill", {
         },
         comment: "Name of the skill (must be unique)",
     },
-
-    // proficiency_level: {
-    //     type: Sequelize.ENUM("Beginner", "Intermediate", "Advanced", "Expert"),
-    //     allowNull: false,
-    //     defaultValue: "Beginner",
-    //     comment: "Skill proficiency level (Beginner to Expert)",
-    // },
 
     description: {
         type: Sequelize.TEXT,

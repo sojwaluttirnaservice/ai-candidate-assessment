@@ -1,6 +1,14 @@
 
 const sequelize = require('../application/config/sequelize');
 const adminSchema = require('../application/schemas/adminSchema');
+const candidateSchema = require('../application/schemas/candidateSchema');
+const candidateSkillsSchema = require('../application/schemas/candidateSkillsSchema');
+const companySchema = require('../application/schemas/companySchema');
+const jobOpeningSchema = require('../application/schemas/jobOpeningSchema');
+const shortlistedCandidateRelationSchema = require('../application/schemas/shortlistedCandidateRelationSchema');
+const skillSchema = require('../application/schemas/skillSchema');
+
+
 
 
 

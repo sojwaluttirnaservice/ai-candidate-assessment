@@ -1,0 +1,128 @@
+<!-- This is just for referecne, copy this layout for company pages -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title><%= title %></title>
+
+        <!-- Common links -->
+        <%- include("../../common/common-links.ejs")%>
+
+        <!-- Company common links -->
+
+        <!-- Common scripts -->
+        <%-include("../../common/common-scripts.ejs")%>
+
+        <!-- Company common scripts -->
+        <%- include("../../common/common-company-scripts.ejs")%>
+
+        <script src="/javascripts/handlers/job/jobListPageHandler.js" type="module" defer></script>
+    </head>
+    <body>
+        <%- include("../../components/navs/company-navbar.ejs")%>
+
+        <main class="relative">
+            <section class="section job-list-section">
+                <div class="container">
+                    <div class="job-list">
+                        <div class="px-4 py-8 sm:px-6 lg:px-8">
+                            <div class="sm:flex sm:items-center">
+                                <div class="sm:flex-auto">
+                                    <h1 class="text-xl font-semibold text-gray-900">Job Roles</h1>
+                                    <!-- <p class="mt-2 text-sm text-gray-700"></p> -->
+                                </div>
+                                <div class=" hidden mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+                                    <button
+                                        type="button"
+                                        class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">
+                                        Add user
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mt-8 flex flex-col">
+                                <div class="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
+                                    <div class="inline-block min-w-full py-2 align-middle">
+                                        <div class="shadow-sm ring-1 ring-black ring-opacity-5">
+                                            <table
+                                                class="min-w-full border-separate"
+                                                style="border-spacing: 0">
+                                                <thead class="bg-gray-50">
+                                                    <tr>
+                                                        <!-- Prettier ignore -->
+                                                        <% ["Title", "Salary", "Location",
+                                                        "Type","Status", "Posted on", "Last Date",
+                                                        "Shortlisted Candidates"].forEach(thName =>
+                                                        { %>
+                                                        <th
+                                                            scope="col"
+                                                            class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">
+                                                            <%= thName %>
+                                                        </th>
+                                                        <% }) %>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="bg-white">
+                                                    <% jobs?.forEach((job) => { %>
+                                                    <tr>
+                                                        <td
+                                                            class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
+                                                            <%= job.job_title %>
+                                                        </td>
+
+                                                        <td
+                                                            class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
+                                                            <%= job.job_salary %>
+                                                        </td>
+
+                                                        <td
+                                                            class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
+                                                            <%= job.job_location %>
+                                                        </td>
+
+                                                        <td
+                                                            class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
+                                                            <%= job.job_type %>
+                                                        </td>
+
+                                                        <td
+                                                            class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
+                                                            <%= job.job_status %>
+                                                        </td>
+
+                                                        <td
+                                                            class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
+                                                            <%= job._posted_on %>
+                                                        </td>
+
+                                                        <td
+                                                            class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
+                                                            <%= job._last_date_to_apply %>
+                                                        </td>
+
+                                                        <td
+                                                            class="relative whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3 text-center text-sm font-medium sm:pr-6 lg:pr-8">
+                                                            <a
+                                                                href="<%=`/candidate/shortlisted/${job.id}` %>"
+                                                                class="text-indigo-600 hover:text-indigo-900"
+                                                                >Show List<span class="sr-only"
+                                                                    >, Shortlisted Candidates</span
+                                                                ></a
+                                                            >
+                                                        </td>
+                                                    </tr>
+                                                    <% })%>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>

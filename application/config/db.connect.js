@@ -27,6 +27,7 @@ const pool = mysql.createPool(
     enableKeepAlive: true,
     keepAliveInitialDelay: 0,
 
+    // acquireTimeout: 60000
   }
 
 )

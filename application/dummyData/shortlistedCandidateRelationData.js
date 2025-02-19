@@ -1,0 +1,37 @@
+/**
+ INSERT INTO shortlisted_candidate_relation (job_id_fk, candidate_id_fk, createdAt, updatedAt)
+VALUES
+    (37, 1, NOW(), NOW()),
+    (37, 2, NOW(), NOW()),
+    (37, 3, NOW(), NOW()),
+    (37, 4, NOW(), NOW()),
+    (37, 5, NOW(), NOW()),
+    (37, 6, NOW(), NOW()),
+    (37, 7, NOW(), NOW()),
+    (37, 8, NOW(), NOW()),
+    (37, 9, NOW(), NOW()),
+    (37, 10, NOW(), NOW()),
+    (37, 11, NOW(), NOW()),
+    (37, 12, NOW(), NOW()),
+    (37, 13, NOW(), NOW()),
+    (37, 14, NOW(), NOW()),
+    (37, 15, NOW(), NOW()),
+    (37, 16, NOW(), NOW()),
+    (37, 17, NOW(), NOW()),
+    (37, 18, NOW(), NOW()),
+    (37, 19, NOW(), NOW()),
+    (37, 20, NOW(), NOW()),
+    (37, 1, NOW(), NOW()),
+    (37, 2, NOW(), NOW()),
+    (37, 3, NOW(), NOW()),
+    (37, 4, NOW(), NOW()),
+    (37, 5, NOW(), NOW()),
+    (37, 6, NOW(), NOW()),
+    (37, 7, NOW(), NOW()),
+    (37, 8, NOW(), NOW()),
+    (37, 9, NOW(), NOW()),
+    (37, 10, NOW(), NOW()),
+    (37, 11, NOW(), NOW()),
+    (37, 12, NOW(), NOW());
+
+ */

@@ -20,7 +20,7 @@ const sendError = (_res, _statusCode = 500, _success = false, _message = '', _da
 }
 
 const renderPage = (_res, _filePath, _renderData = {}) => {
-    return _res.render(_filePath, { ..._renderData })
+    return _res.render(_filePath, { title: "No title found", ..._renderData })
 }
 
 module.exports = { sendResponse, sendError, renderPage }

@@ -45,7 +45,7 @@ app.use(upload());
 
 
 // view engine setup
-app.set('views', path.join(__dirname, 'application/views'));
+app.set('views', path.join(__dirname, 'application/views/pages'));
 app.set('view engine', 'ejs');
 
 
