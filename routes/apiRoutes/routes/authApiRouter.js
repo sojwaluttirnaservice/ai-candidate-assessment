@@ -1,3 +1,4 @@
+const adminAuthController = require("../../../application/controllers/auth/adminAuthController");
 const candidateAuthController = require("../../../application/controllers/auth/candidateAuthController");
 const companyAuthController = require("../../../application/controllers/auth/companyAuthController");
 const { sendResponse } = require("../../../application/utils/responses/ApiResponse");
@@ -14,6 +15,10 @@ authApiRouter.post("/login", async (req, res) => {
     }
     if (role == 'company') {
         return companyAuthController.login(req, res)
+    }
+
+    if (role == 'admin') {
+        return adminAuthController.login(req, res)
     }
 })
 

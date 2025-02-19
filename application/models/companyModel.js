@@ -6,6 +6,12 @@ const companyModel = {
         let q = `SELECT * FROM company WHERE company_email = ?`
 
         return db.query(q, [email])
+    },
+
+    count: () => {
+        let q = `SELECT COUNT(*) AS total_companies FROM company`
+
+        return db.query(q)
     }
 }
 

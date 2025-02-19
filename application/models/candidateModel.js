@@ -71,7 +71,7 @@ const candidateModel = {
 
     getCandidatesBySkills: (skills) => {
         // The 'skills' parameter is an array of skill IDs (e.g., [1, 2, 3])
-        
+
         // Build the SQL query
         let q = `SELECT 
                         c.id,
@@ -106,12 +106,17 @@ const candidateModel = {
                   )
                   GROUP BY c.id
                   ORDER BY c.years_of_experience DESC`;
-    
+
         // Execute the query with the 'skills' array passed as values
         return db.query(q, skills);  // The 'skills' array will replace the '?' placeholders
     },
-    
 
+
+    count: () => {
+        let q = `SELECT COUNT(*) AS total_candidates FROM candidate`
+
+        return db.query(q)
+    }
 
 }
 
