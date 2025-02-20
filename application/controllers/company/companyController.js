@@ -1,3 +1,4 @@
+const companyModel = require("../../models/companyModel");
 const jobOpeningModel = require("../../models/jobOpeningModel");
 const shortlistedCandidateRelationModel = require("../../models/shortlistedCandidateRelationModel");
 const skillModel = require("../../models/skillModel");
@@ -18,8 +19,13 @@ const companyController = {
     }),
 
     renderSearchPage: asyncHandler(async (req, res) => {
-        const _skills = await skillModel.list();
-        renderPage(res, 'company/search-page.ejs', { title: 'Search', skills: _skills[0] })
+        const [_skills, metadata] = await skillModel.list();
+        renderPage(res, 'company/search-page.ejs', { title: 'Search', skills: _skills })
+    }),
+
+    renderCompaniesListPage: asyncHandler(async (req, res) => {
+        const [_companies, metadata] = await companyModel.list();
+        renderPage(res, 'company/companies-list-page.ejs', { title: 'Companies', companies: _companies, totalCompanies: _companies.length })
     })
 }
 

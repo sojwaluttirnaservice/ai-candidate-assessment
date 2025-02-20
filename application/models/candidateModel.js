@@ -80,6 +80,7 @@ const candidateModel = {
                         c.mobile,
                         c.gender,
                         c.years_of_experience,
+                        c.candidate_status,
                         
                         -- Aggregate all skills related to the candidate into a JSON array
                         JSON_ARRAYAGG(
@@ -102,19 +103,51 @@ const candidateModel = {
                           ON c.id = cs.candidate_id_fk
                       INNER JOIN skill AS s
                           ON cs.skill_id_fk = s.id
-                      WHERE s.id IN (${skills.map(() => '?').join(', ')})  -- Bind skills dynamically
+                      WHERE c.candidate_status = ? AND s.id IN (${skills.map(() => '?').join(', ')})  -- Bind skills dynamically
                   )
                   GROUP BY c.id
                   ORDER BY c.years_of_experience DESC`;
 
+        let candidateStatus = 'ACTIVE'
         // Execute the query with the 'skills' array passed as values
-        return db.query(q, skills);  // The 'skills' array will replace the '?' placeholders
+        return db.query(q, [candidateStatus, ...skills]);  // The 'skills' array will replace the '?' placeholders
     },
 
 
     count: () => {
         let q = `SELECT COUNT(*) AS total_candidates FROM candidate`
 
+        return db.query(q)
+    },
+
+    list: () => {
+        const q =
+
+            `SELECT 
+                        c.id,
+                        c.name,
+                        c.email,
+                        c.mobile,
+                        c.gender,
+                        c.years_of_experience,
+                        c.candidate_status,
+                        
+                        -- Aggregate all skills related to the candidate into a JSON array
+                        JSON_ARRAYAGG(
+                            JSON_OBJECT(
+                                'id', s.id,               -- Skill ID
+                                'skill_name', s.skill_name, -- Skill name
+                                'description', s.description -- Skill description
+                            )
+                        ) AS candidate_skills
+    
+                  FROM candidate AS c
+                  INNER JOIN candidate_skills AS cs
+                      ON c.id = cs.candidate_id_fk
+                  INNER JOIN skill AS s
+                      ON cs.skill_id_fk = s.id
+                  GROUP BY c.id
+                  ORDER BY c.years_of_experience DESC`;
         return db.query(q)
     }
 

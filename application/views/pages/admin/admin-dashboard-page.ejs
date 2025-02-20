@@ -15,9 +15,9 @@
         <!-- Common scripts -->
         <%-include("../../common/common-scripts.ejs")%>
 
-        <!-- Company common scripts -->
+        <!-- Admin common scripts -->
 
-        <%- include("../../common/common-company-scripts.ejs")%>
+        <%- include("../../common/common-admin-scripts.ejs")%>
 
         <script
             src="/javascripts/handlers/admin/adminDashboardHandler.js"
@@ -30,12 +30,12 @@
         <main>
             <section>
                 <div class="container">
-
                     <div class="mt-8 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                         <h2 class="text-lg leading-6 font-medium text-gray-900">Overview</h2>
+
                         <div class="mt-2 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
                             <!-- first -->
-                            <div class="bg-white overflow-hidden shadow rounded-lg">
+                            <a href="/company" class="bg-white overflow-hidden shadow rounded-lg">
                                 <div class="p-5">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0">
@@ -52,7 +52,7 @@
                                             <dl>
                                                 <dt
                                                     class="text-2xl font-medium text-gray-500 truncate">
-                                                    Total Organizations / Companies
+                                                    Total Organizations
                                                 </dt>
                                                 <dd>
                                                     <div class="text-2xl font-medium text-gray-900">
@@ -72,11 +72,11 @@
                                         </a>
                                     </div>
                                 </div> -->
-                            </div>
+                            </a>
 
                             <!-- SEcond  -->
 
-                            <div class="bg-white overflow-hidden shadow rounded-lg">
+                            <a href="/candidate" class="bg-white overflow-hidden shadow rounded-lg">
                                 <div class="p-5">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0">
@@ -113,7 +113,7 @@
                                         </a>
                                     </div>
                                 </div> -->
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>

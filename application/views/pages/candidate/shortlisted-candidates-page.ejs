@@ -15,8 +15,14 @@
         <!-- Common scripts -->
         <%-include("../../common/common-scripts.ejs")%>
 
-        <!-- Company common scripts -->
-        <%- include("../../common/common-company-scripts.ejs")%>
+        <% if (typeof admin !== 'undefined' && admin) {%>
+            <!-- Admin common scripts -->
+            <%- include("../../common/common-admin-scripts.ejs")%>
+            <% } else { %>
+                <!-- Company common scripts -->
+            <%- include("../../common/common-company-scripts.ejs")%>
+        <% }%>
+
 
         <script
             src="/javascripts/handlers/company/dashboardHandler.js"
@@ -24,7 +30,12 @@
             defer></script>
     </head>
     <body>
-        <%- include("../../components/navs/company-navbar.ejs")%>
+
+        <% if (typeof admin !== 'undefined' && admin) {%>
+            <%- include("../../components/navs/admin-navbar.ejs")%>
+        <% } else { %>
+            <%- include("../../components/navs/company-navbar.ejs")%>
+        <% }%>
 
         <main>
             <section class="section shortlisted-candidates-section">
@@ -41,11 +52,20 @@
                                     <!-- <p class="mt-2 text-sm text-gray-700"></p> -->
                                 </div>
                                 <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-                                    <a
+                                    <% if (typeof admin !== 'undefined' && admin) {%>
+                                        <button
+                                        onclick="window.history.back()"
+                                        class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">
+                                        Back
+                                    </button>
+                                    <% } else { %>
+                                        <a
                                         href="/job"
                                         class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">
                                         Job Openings
                                     </a>
+                                    <% }%>
+                                    
                                 </div>
                             </div>
                         </div>

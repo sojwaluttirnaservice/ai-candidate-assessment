@@ -1,3 +1,4 @@
+const companyModel = require("../../models/companyModel");
 const jobOpeningModel = require("../../models/jobOpeningModel");
 const asyncHandler = require("../../utils/asyncHandler");
 const { renderPage, sendResponse } = require("../../utils/responses/ApiResponse");
@@ -14,6 +15,22 @@ const jobController = {
 
     renderAddJobPage: asyncHandler(async (req, res) => {
         renderPage(res, 'job/add-job-page.ejs', { title: 'Add Job', company: req?.session?.company })
+    }),
+
+
+    // For the company jobs for admin panel
+    renderCompanyJobsPage: asyncHandler(async (req, res) => {
+
+        const session = req.session;
+
+        const { companyId } = req.params;
+
+        const [_jobs, _metadata] = await jobOpeningModel.getByCompany(companyId)
+
+        const [_company, _] = await companyModel.getById(companyId);
+
+        renderPage(res, 'job/jobs-list-page.ejs', { title: 'Company Jobs', jobs: _jobs, admin: session.admin, company: _company[0] })
+
     }),
 
 

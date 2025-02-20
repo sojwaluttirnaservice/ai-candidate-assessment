@@ -61,6 +61,13 @@ const candidateSchema = sequelize.define("candidate", {
     },
 
 
+    candidate_status: {
+        type: Sequelize.ENUM('SUSPENDED', 'ACTIVE', "INACTIVE"),
+        allowNull: false,
+        defaultValue: 'ACTIVE',
+        comment: "Whether the candidate is suspended or not",
+    },
+
     years_of_experience: {
         type: Sequelize.INTEGER,
         allowNull: false,

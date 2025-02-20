@@ -35,7 +35,7 @@
                     -->
 
             <!-- MOBILE FILTERS -->
-            <div class="fixed inset-0 flex z-40 sm:hidden" role="dialog" aria-modal="true">
+            <div hidden class="fixed inset-0 flex z-40 sm:hidden" role="dialog" aria-modal="true">
                 <!--
                                 Off-canvas menu overlay, show/hide based on off-canvas menu state.
                         
@@ -46,7 +46,7 @@
                                 From: "opacity-100"
                                 To: "opacity-0"
                             -->
-                <div class="fixed inset-0 bg-black bg-opacity-25" aria-hidden="true"></div>
+                <div hidden class="fixed inset-0 bg-black bg-opacity-25" aria-hidden="true"></div>
 
                 <!--
         Off-canvas menu, show/hide based on off-canvas menu state.
@@ -58,7 +58,9 @@
           From: "translate-x-0"
           To: "translate-x-full"
       -->
+                <!-- Mobile view filters -->
                 <div
+                    hidden
                     class="ml-auto relative max-w-xs w-full h-full bg-white shadow-xl py-4 pb-12 flex flex-col overflow-y-auto">
                     <div class="px-4 flex items-center justify-between">
                         <h2 class="text-lg font-medium text-gray-900">Filters</h2>
@@ -84,6 +86,7 @@
                     </div>
 
                     <!-- Filters -->
+
                     <form class="mt-4">
                         <div class="border-t border-gray-200 px-4 py-6">
                             <h3 class="-mx-2 -my-3 flow-root">
@@ -327,6 +330,8 @@
                 </div>
             </div>
 
+
+            <!-- Desktop filter -->
             <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
                 <h1 class="text-3xl font-extrabold tracking-tight text-gray-900">Filters</h1>
             </div>
@@ -339,7 +344,7 @@
                 <div class="relative z-10 bg-white border-b border-gray-200 pb-4">
                     <div
                         class="max-w-7xl mx-auto px-4 flex items-center justify-between sm:px-6 lg:px-8">
-                        <div class="relative inline-block text-left">
+                        <div class="relative inline-block text-left opacity-0">
                             <!-- TODO: UNHIDE THIS LATER -->
                             <!-- Temporary hidden -->
                             <div class="hidden">
@@ -427,7 +432,7 @@
                         </button>
 
                         <!-- DESKTOP FILTERS -->
-                        <div class="desktop-filters hidden sm:block">
+                        <div class="desktop-filters block">
                             <div class="flow-root">
                                 <div class="-mx-4 flex items-center divide-x divide-gray-200">
                                     <div class="px-4 relative inline-block text-left">
@@ -553,7 +558,10 @@
                     <!--  -->
 
                     <div class="bg-white shadow overflow-hidden sm:rounded-md">
-                        <ul data-role="candidate-list" role="list" class="divide-y divide-gray-200"></ul>
+                        <ul
+                            data-role="candidate-list"
+                            role="list"
+                            class="divide-y divide-gray-200"></ul>
                     </div>
                 </div>
             </section>

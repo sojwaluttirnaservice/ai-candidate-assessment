@@ -17,7 +17,7 @@ const adminAuthController = {
         let session = req.session
 
         if (process.env.PROJECT_ENV != 'PROD') {
-            req.session.company = { id: 1, role: 'company' }
+            req.session.admin = { role: 'admin' }
         }
 
         if (!session?.admin) {

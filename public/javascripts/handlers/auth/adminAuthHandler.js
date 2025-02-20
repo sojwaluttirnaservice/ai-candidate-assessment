@@ -19,7 +19,6 @@ const handleLogin = async (loginDetails) => {
         } else {
             toast.error(message)
         }
-
     } catch (err) {
         console.error(err);
         toast.error(err?.response?.data?.message || "Something went wrong")
