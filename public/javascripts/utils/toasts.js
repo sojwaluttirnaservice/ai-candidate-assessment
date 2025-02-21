@@ -5,8 +5,7 @@ const toast = {
             duration: 2000,
             className: "!bg-green-600 text-white",
             style: {
-                background:
-                    "linear-gradient(to right, rgb(182, 244, 146), rgb(51, 139, 147))",
+                background: "linear-gradient(to right, #4caf50, #2e7d32)",
             },
         }).showToast(); // Display success message if save is successful
     },

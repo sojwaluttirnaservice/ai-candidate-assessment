@@ -7,7 +7,13 @@ const viewAuthController = {
     }),
 
     renderSignupPage: asyncHandler(async (req, res) => {
-        renderPage(res, 'auth/signup-page.ejs', { title: 'Signup' })
+
+        let { r: role } = req.query;
+        if (role == 'org') {
+            renderPage(res, 'auth/company-signup-page.ejs', { title: "Signup page" })
+        } else {
+            renderPage(res, 'auth/signup-page.ejs', { title: 'Signup' })
+        }
     })
 }
 

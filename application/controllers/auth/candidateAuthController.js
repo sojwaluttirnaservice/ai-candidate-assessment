@@ -1,15 +1,23 @@
 const candidateModel = require("../../models/candidateModel");
 const asyncHandler = require("../../utils/asyncHandler");
+const { paths } = require("../../utils/files/createDirectories");
 const { sendResponse } = require("../../utils/responses/ApiResponse");
 
 const candidateAuthController = {
 
-    candidateAuth: asyncHandler(async (req, res, next) => {
+    checkCandidateAuth: asyncHandler(async (req, res, next) => {
 
 
         let session = req.session
 
-        if (session && session.candidate) {
+        if (process.env.PROJECT_ENV == 'DEV') {
+            if (!req.session.candidate) {
+                let [_candidate, _] = await candidateModel.getCandidateById(2);
+                req.session.candidate = _candidate[0];
+            }
+        }
+
+        if (session?.candidate) {
             next()
             return;
         }
@@ -20,7 +28,7 @@ const candidateAuthController = {
 
         const { email, password, role } = req.body;
 
-        
+
 
         console.log(req.body)
 
@@ -44,7 +52,9 @@ const candidateAuthController = {
 
         const { password: _candidatePassword, ...candidateData } = candidate
 
-        req.session.candidate = { ...candidateData, role }
+        req.session.candidate = { ...candidateData, role, profileImageUrl: paths.candidate.renderPath }
+
+        console.log(candidateData)
 
         return sendResponse(res, 200, true, "Login successful", { candidate: candidateData });
     }),

@@ -25,6 +25,7 @@ const candidateSchema = sequelize.define("candidate", {
     email: {
         type: Sequelize.STRING(100),
         allowNull: false,
+        unqiue: true,
         validate: {
             isEmail: true,
         },
@@ -77,6 +78,32 @@ const candidateSchema = sequelize.define("candidate", {
         comment: "Years of experience of the candidate",
     },
 
+    candidate_summary: {
+        type: Sequelize.TEXT,
+        allowNull: false,
+        validate: {
+            notEmpty: false,
+        },
+        comment: "Summary of the candidate",
+    },
+
+
+    candidate_description: {
+        type: Sequelize.TEXT,
+        allowNull: false,
+        validate: {
+            notEmpty: false,
+        },
+        comment: "Description of the candidate",
+    },
+
+    image_name: {
+        type: Sequelize.STRING(255),
+        allowNull: true,
+        defautValue: '',
+        comment: "Name of the image uploaded for the candidate",
+    },
+
     createdAt: {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
@@ -90,7 +117,7 @@ const candidateSchema = sequelize.define("candidate", {
     },
 }, {
     timestamps: true, // Enables createdAt & updatedAt fields
-    comment: "Table storing the skills",
+    comment: "Table storing the Candidate Personal Details",
 });
 
 // Export the model

@@ -1,6 +1,4 @@
 const db = require("../config/db.connect");
-const asyncHandler = require("../utils/asyncHandler");
-
 const candidateModel = {
 
     add: (insertData) => {
@@ -11,7 +9,10 @@ const candidateModel = {
                     password,
                     mobile,
                     gender,
-                    years_of_experience
+                    years_of_experience,
+                    image_name,
+                    candidate_summary,
+                    candidate_description
                 ) VALUES (?)
                 `
 
@@ -21,7 +22,10 @@ const candidateModel = {
             insertData.password,
             insertData.mobile,
             insertData.gender,
-            insertData.years_of_experience
+            insertData.years_of_experience,
+            insertData.image_name || '',
+            insertData.candidate_summary || '',
+            insertData.candidate_description || ''
         ]
 
         return db.query(q, [insertArray])
@@ -34,7 +38,9 @@ const candidateModel = {
                 password = ?,
                 mobile = ?,
                 gender = ?,
-                years_of_experience = ?
+                years_of_experience = ?,
+                candidate_summary = ?,
+                candidate_description = ?
                 WHERE id = ?
                 `
 
@@ -45,8 +51,13 @@ const candidateModel = {
             updateData.mobile,
             updateData.gender,
             updateData.years_of_experience,
+            updateData.candidate_summary || '',
+            updateData.candidate_description || '',
             updateData.id
         ]
+
+
+        console.log(updateData)
 
         return db.query(q, updateArray)
     },
@@ -149,6 +160,50 @@ const candidateModel = {
                   GROUP BY c.id
                   ORDER BY c.years_of_experience DESC`;
         return db.query(q)
+    },
+
+    getCandiateSkills: (candidateId) => {
+        let q = `
+                SELECT 
+                    s.id AS skill_id,
+                    s.skill_name,
+                    c.id AS candidate_id
+                FROM 
+                    candidate_skills cs
+                JOIN 
+                    skill s ON cs.skill_id_fk = s.id
+                JOIN 
+                    candidate c ON cs.candidate_id_fk = c.id
+                WHERE 
+                    c.id = ?;
+                `
+
+        return db.query(q, [candidateId])
+    },
+
+
+    getCandidateEducation: (candidateId) => {
+
+        let q = `SELECT
+                    id,
+                    candidate_id_fk as candidate_id,
+                    degree_type,
+                    institution_name,
+                    board_university,
+                    passing_year,
+                    percentage_cgpa,
+                    specialization,
+                    createdAt,
+                    updatedAt
+                
+                FROM 
+                    candidate_education
+                WHERE 
+                    candidate_id_fk = ?
+                ORDER BY 
+                    passing_year ASC;`
+
+        return db.query(q, [candidateId])
     }
 
 }

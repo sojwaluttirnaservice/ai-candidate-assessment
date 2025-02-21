@@ -3,7 +3,7 @@ module.exports = {
     // JIT mode is used to generate CSS on-demand, which is more efficient than the default mode.
     mode: "jit",
     content: [
-        "./application/views/**/*.ejs",
+        "./application/**/*.ejs",
         "./public/javascript/**/*.js",
         // "./public/stylesheets/**/*.css",
     ],
@@ -18,8 +18,7 @@ module.exports = {
         {
             tailwindcss: {},
             autoprefixer: {},
-            ...require('@tailwindcss/forms'),
-            
         },
+        // require('@tailwindcss/forms'),
     ],
 }

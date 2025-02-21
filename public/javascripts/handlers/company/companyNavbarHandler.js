@@ -29,26 +29,24 @@ $(() => {
     // HANLDE TOGGLING THE MOBILE MENU FOR THE COMPANY NAVBAR
 
     // HANLDE TOGGLING THE MOBILE MENU FOR THE COMPANY NAVBAR
-$(document).on('click', '[data-role="mobile-menu-btn"]', function (e) {
-    e.preventDefault();
+    $(document).on('click', '[data-role="mobile-menu-btn"]', function (e) {
+        e.preventDefault();
 
-    // Find the mobile menu element
-    const mobileMenu = $('[data-role="mobile-menu"]');
+        // Find the mobile menu element
+        const mobileMenu = $('[data-role="mobile-menu"]');
 
-    // Check if the menu is currently visible
-    const currentDisplay = mobileMenu.css('display');
+        // Check if the menu is currently visible
+        const currentDisplay = mobileMenu.css('display');
 
-    if (currentDisplay === 'none') {
-        // Fade in the menu and change the display to block
-        mobileMenu.stop(true, true).fadeIn(300); // 300ms fade-in duration
-    } else {
-        // Fade out the menu and change the display to none
-        mobileMenu.stop(true, true).fadeOut(300); // 300ms fade-out duration
-    }
-});
+        if (currentDisplay === 'none') {
+            // Fade in the menu and change the display to block
+            mobileMenu.stop(true, true).fadeIn(300); // 300ms fade-in duration
+        } else {
+            // Fade out the menu and change the display to none
+            mobileMenu.stop(true, true).fadeOut(300); // 300ms fade-out duration
+        }
+    });
 
-
-
-
+    /
 
 })

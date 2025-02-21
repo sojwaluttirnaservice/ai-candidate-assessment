@@ -5,16 +5,11 @@ let basePath = ''
 
 
 const paths = {
-    // thumbnail: {
-    //     directoryPath: 'public/uploads/property/thumbnail',
-    //     renderPath: '/uploads/property/thumbnail',
-    //     customPath: 'property/thumbnail'
-    // },
-    // gallery: {
-    //     directoryPath: 'public/uploads/property/gallery',
-    //     renderPath: '/uploads/property/gallery',
-    //     customPath: 'property/gallery'
-    // },
+    candidate: {
+        directoryPath: 'public/uploads/candidate/profile',
+        renderPath: '/uploads/candidate/profile',
+        customPath: 'candidate/profile'
+    },
 }
 
 
@@ -35,6 +30,6 @@ const createFileDirectories = () => {
 
 }
 
-module.exports = { paths,createFileDirectories };
+module.exports = { paths ,createFileDirectories };
 
 
