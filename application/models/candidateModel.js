@@ -12,7 +12,8 @@ const candidateModel = {
                     years_of_experience,
                     image_name,
                     candidate_summary,
-                    candidate_description
+                    candidate_description,
+                    candidate_objective
                 ) VALUES (?)
                 `
 
@@ -25,41 +26,48 @@ const candidateModel = {
             insertData.years_of_experience,
             insertData.image_name || '',
             insertData.candidate_summary || '',
-            insertData.candidate_description || ''
+            insertData.candidate_description || '',
+            insertData.candidate_objective || ''
         ]
 
         return db.query(q, [insertArray])
     },
 
     update: (updateData) => {
+        console.log(updateData);
         let q = `UPDATE candidate SET 
                 name = ?,
                 email = ?,
-                password = ?,
                 mobile = ?,
                 gender = ?,
+
                 years_of_experience = ?,
                 candidate_summary = ?,
-                candidate_description = ?
+                candidate_description = ?,
+                candidate_objective = ?
+
                 WHERE id = ?
                 `
 
         const updateArray = [
             updateData.name,
             updateData.email,
-            updateData.password,
             updateData.mobile,
             updateData.gender,
+
             updateData.years_of_experience,
             updateData.candidate_summary || '',
             updateData.candidate_description || '',
+            updateData.candidate_objective || '',
+
             updateData.id
         ]
-
-
-        console.log(updateData)
-
         return db.query(q, updateArray)
+    },
+
+    updateImageName: (imageName, candidateId) => {
+        let q = `UPDATE candidate SET image_name = ? WHERE id =?`
+        return db.query(q, [imageName, candidateId])
     },
 
     getCandidateById: (id) => {
@@ -92,6 +100,7 @@ const candidateModel = {
                         c.gender,
                         c.years_of_experience,
                         c.candidate_status,
+                        c.image_name,
                         
                         -- Aggregate all skills related to the candidate into a JSON array
                         JSON_ARRAYAGG(
@@ -142,6 +151,7 @@ const candidateModel = {
                         c.gender,
                         c.years_of_experience,
                         c.candidate_status,
+                        c.image_name,
                         
                         -- Aggregate all skills related to the candidate into a JSON array
                         JSON_ARRAYAGG(
@@ -167,7 +177,8 @@ const candidateModel = {
                 SELECT 
                     s.id AS skill_id,
                     s.skill_name,
-                    c.id AS candidate_id
+                    c.id AS candidate_id,
+                    c.image_name
                 FROM 
                     candidate_skills cs
                 JOIN 
@@ -193,6 +204,7 @@ const candidateModel = {
                     passing_year,
                     percentage_cgpa,
                     specialization,
+                  
                     createdAt,
                     updatedAt
                 
@@ -204,6 +216,23 @@ const candidateModel = {
                     passing_year ASC;`
 
         return db.query(q, [candidateId])
+    },
+    shortlist: (jobId, candidateId) => {
+        let q = `INSERT INTO shortlisted_candidate_relation
+                (
+                job_id_fk,
+                candidate_id_fk
+                ) VALUES (?, ?)`
+
+
+        return db.query(q, [jobId, candidateId])
+
+    },
+
+    shortlistedEntries: (jobId, candidateId) => {
+        console.log(jobId, candidateId);
+        let q = `SELECT * FROM shortlisted_candidate_relation WHERE job_id_fk = ? AND candidate_id_fk =?`
+        return db.query(q, [jobId, candidateId])
     }
 
 }

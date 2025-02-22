@@ -10,7 +10,7 @@ const jobController = {
         let { company } = req.session
 
         const _jobs = await jobOpeningModel.getByCompany(company.id)
-        renderPage(res, 'job/jobs-list-page.ejs', { title: 'Jobs', jobs: _jobs[0] })
+        renderPage(res, 'job/jobs-list-page.ejs', { title: 'Jobs', jobs: _jobs[0] , company: req.session.company})
     }),
 
     renderAddJobPage: asyncHandler(async (req, res) => {

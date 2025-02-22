@@ -36,6 +36,8 @@ $(() => {
             selectedSkills = selectedSkills.filter(skill => skill.id != skillId);
         }
 
+        $('#selected-skills-count').text(selectedSkills.length ? selectedSkills.length : '0')
+
         renderSelectedSkills(selectedSkills)
 
         if (selectedSkills.length > 0) {
@@ -65,6 +67,7 @@ $(() => {
     function renderSelectedSkills(_skillsArray) {
 
         let selectedSkillsContainer = $('[data-role="selected-skills"]')
+
         selectedSkillsContainer.empty();
         const html =
             _skillsArray.map(_skill => {
@@ -101,17 +104,18 @@ $(() => {
 
     function renderCandidates(_candidatesArray) {
 
-
+        let candidatesListContainer = $('[data-role="candidate-list"]')
+        let profileImageUrl = candidatesListContainer.attr('data-profileImageUrl')
 
         let html = _candidatesArray.map((_candidate, _index) => {
             return (
                 `
                 <li>
-                    <a href="/candidate/c/${_candidate.id}" class="block hover:bg-gray-50">
+                    <a href="/resume/c/${_candidate.id}" class="block hover:bg-gray-50">
                         <div class="flex items-center px-4 py-4 sm:px-6">
                             <div class="min-w-0 flex-1 flex items-center">
                                 <div class="flex-shrink-0">
-                                    <img class="h-12 w-12 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                    <img class="h-12 w-12 rounded-full" src="${profileImageUrl}/${_candidate.image_name}" alt="">
                                 </div>
                                 <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
                                     <div>
@@ -167,7 +171,7 @@ $(() => {
         })
 
 
-        $('[data-role="candidate-list"]').html(html)
+        candidatesListContainer.html(html)
     }
 
 })

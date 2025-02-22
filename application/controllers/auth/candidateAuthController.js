@@ -15,6 +15,7 @@ const candidateAuthController = {
                 let [_candidate, _] = await candidateModel.getCandidateById(2);
                 req.session.candidate = _candidate[0];
             }
+            console.log(req.session.candidate);
         }
 
         if (session?.candidate) {
@@ -28,9 +29,6 @@ const candidateAuthController = {
 
         const { email, password, role } = req.body;
 
-
-
-        console.log(req.body)
 
         if (!email || !password) {
             return sendResponse(res, 400, false, "Email and password are required");

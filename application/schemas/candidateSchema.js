@@ -87,6 +87,11 @@ const candidateSchema = sequelize.define("candidate", {
         comment: "Summary of the candidate",
     },
 
+    candidate_objective: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+        comment: "Objective of the candidate",
+    },
 
     candidate_description: {
         type: Sequelize.TEXT,

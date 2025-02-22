@@ -1,3 +1,4 @@
+const { checkAdminAuth } = require("../../../application/controllers/auth/adminAuthController");
 const { checkCandidateAuth } = require("../../../application/controllers/auth/candidateAuthController");
 const { checkCompanyAuth } = require("../../../application/controllers/auth/companyAuthController");
 const candidateController = require("../../../application/controllers/candidate/candidateController");
@@ -14,13 +15,20 @@ candidateApiRouter.post('/list', checkCompanyAuth, asyncHandler(async (req, res)
 
     let _candidateWithMatchingSkills = await candidateModel.getCandidatesBySkills(skills);
 
-    return sendResponse(res, 200, true, 'Candidates matching skills fetched successfully', { candidatesMatchingSkills: _candidateWithMatchingSkills[0] })
+    console.log(_candidateWithMatchingSkills[0]);
+
+    return sendResponse(res, 200, true, 'Candidates matching skills fetched successfully', {  candidatesMatchingSkills: _candidateWithMatchingSkills[0] })
 }))
+
+candidateApiRouter.put('/upload-image', checkCandidateAuth, candidateController.uploadProfileImage)
 
 candidateApiRouter.post('/', candidateController.saveCandidateDetails)
 
 
+candidateApiRouter.post('/chat', checkCandidateAuth, candidateController.getChatResponse)
 
 candidateApiRouter.put('/', checkCandidateAuth, candidateController.updateCandidateDetails)
+
+candidateApiRouter.post('/shortlist', checkCompanyAuth, candidateController.shortlistCandidate)
 
 module.exports = candidateApiRouter;

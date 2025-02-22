@@ -25,6 +25,7 @@ const shortlistedCandidateRelationModel = {
                         c.gender,
                         c.years_of_experience,
                         sc.job_id_fk AS job_id,
+                        c.image_name,
                         JSON_ARRAYAGG(
                             JSON_OBJECT(
                                 'id', s.id,

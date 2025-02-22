@@ -446,8 +446,9 @@
                                             <span>Skills</span>
 
                                             <span
+                                                id="selected-skills-count"
                                                 class="ml-1.5 rounded py-0.5 px-1.5 bg-gray-200 text-xs font-semibold text-gray-700 tabular-nums"
-                                                >1</span
+                                                >0</span
                                             >
                                             <!-- Heroicon name: solid/chevron-down -->
                                             <svg
@@ -559,6 +560,8 @@
 
                     <div class="bg-white shadow overflow-hidden sm:rounded-md">
                         <ul
+                            id="shortlisted-candidates-list"
+                            data-profileImageUrl = "<%=profileImageUrl%>"
                             data-role="candidate-list"
                             role="list"
                             class="divide-y divide-gray-200"></ul>

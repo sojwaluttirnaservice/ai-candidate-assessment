@@ -12,6 +12,25 @@
 
         <!-- Company common linksi -->
 
+        <style>
+            @keyframes border-flow {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+            .animate-border {
+                background-size: 300% 300%;
+                animation: border-flow 6s linear infinite;
+                filter: blur(6px);
+                opacity: 0.8;
+            }
+
+        </style>
+
         <!-- Common scripts -->
         <%-include("../../common/common-scripts.ejs")%>
 
@@ -27,6 +46,43 @@
         <%- include("../../components/navs/candidate-navbar.ejs")%>
 
         <main>
+
+            <!-- Upload image modal -->
+
+            <!-- Modal -->
+            <div id="image-upload-modal" data-role="modal" class="fixed inset-0 hidden  flex items-center justify-center z-[500]">
+                <div class="bg-white border border-gray-400 shadow-lg rounded-lg p-6  w-[350px] md:max-w-md ">
+                    <form id="upload-image-form">
+                        <h2 class="text-lg font-semibold mb-4">Upload New Profile Image</h2>
+
+                        <input
+                            type="file"
+                            id="profile-image-input"
+                            accept="image/*"
+                            name="candidateImage"
+                            class="block w-full text-sm text-gray-700 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+                        />
+                        <input type="text" name="old_image_name" value="<%= candidate.image_name%>" hidden>
+                        <input type="text" name="id" value="<%= candidate.id %>" hidden>
+
+                        <div class="mt-4 flex justify-end space-x-2">
+                            <button
+                                type="button"
+                                data-role="close-modal-btn"
+                                class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 focus:outline-none">
+                                Close
+                            </button>
+                            <button
+                                type="button"
+                                id="upload-candidate-image-btn"
+                                class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                Upload
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
 
 
             <!-- PROFILE SECTION PART -->
@@ -54,14 +110,26 @@
                                                     Photo
                                                 </label>
                                                 <div class="mt-1 flex items-center">
-                                                    <span
+                                                    <!-- <span
                                                         class="inline-block size-16 rounded-full overflow-hidden bg-gray-100">
                                                         <img
                                                         src="<%= `${candidate.profileImageUrl}/${candidate.image_name}`%>"
                                                             alt="" />
-                                                    </span>
+                                                    </span> -->
+
+                                                    <div>
+                                                        <div class="flex items-center justify-center size-[100px] overflow-hidden bg-red-500 rounded-full">
+
+                                                            <img
+                                                            class="w-full h-full"
+                                                            src="<%= `${candidate.profileImageUrl}/${candidate.image_name}`%>"
+                                                            alt="" />
+                                                        </div>
+                                                    </div>
                                                     <button
                                                         type="button"
+                                                        data-role="open-modal-btn"
+                                                        data-target-modal="image-upload-modal"
                                                         class="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                                         Change
                                                     </button>
@@ -175,6 +243,58 @@
                                                 </div>
                                             </div>
 
+
+
+                                            <div>
+                                                <div>
+                                                    <div class="flex items-center justify-between">
+                                                        <label
+                                                            for="candidate_objective"
+                                                            class="block text-sm font-medium text-gray-700">
+                                                            Objetive
+                                                        </label>
+                                                        <div class="flex justify-center">
+                                                            <!-- Advanced Generate Button -->
+                                                            <button
+                                                                data-candidate='<%= JSON.stringify(candidate) %>'
+                                                                data-candidte-skills="<%=candidateSkills%>"
+                                                                data-candidate-education='<%= JSON.stringify(education) %>'
+                                                                id="generate-objective-btn"
+                                                                type='button' 
+                                                                class="relative flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium py-2 px-6 rounded-full shadow-lg transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                                                >
+                                                                <span id="generate-text" class="flex items-center gap-2">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                        <path d="M12 2l2.6 5.3L20 8l-4 4 1 5.6L12 14l-5 3 1-5.6-4-4 5.4-.7L12 2z"/>
+                                                                        <path d="M5 19l2-2m10 2l-2-2m-6 2l2-2m6 2l-2-2"/>
+                                                                    </svg>
+                                                                    Generate
+                                                                </span>
+ 
+                                                            </button>
+
+                                                        </div>
+                                                        
+                                                </div>
+
+                                            </div>
+                                                <div class="mt-1">
+                                                    <textarea
+                                                        id="candidate_objective"
+                                                        name="candidate_objective"
+                                                        rows="3"
+                                                        
+                                                        class="shadow-sm text-left focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2 bg-white text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-indigo-500"
+                                                        placeholder="Write something..."><%=candidate.candidate_objective?.trim() %></textarea>
+
+                                                    
+                                                </div>
+                                                <!-- <p class="mt-2 text-sm text-gray-500">
+                                                    Brief description for your profile. URLs are
+                                                    hyperlinked.
+                                                </p> -->
+                                            </div>
+
                                             <div>
                                                 <div>
                                                     <div class="flex items-center justify-between">
@@ -184,13 +304,23 @@
                                                             Summary
                                                         </label>
                                                         <div class="flex justify-center">
-                                                            <button class="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-lg shadow-md transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
-                                                                    <path d="M12 2l2.6 5.3L20 8l-4 4 1 5.6L12 14l-5 3 1-5.6-4-4 5.4-.7L12 2z"/>
-                                                                    <path d="M5 19l2-2m10 2l-2-2m-6 2l2-2m6 2l-2-2"/>
-                                                                  </svg>
-                                                                  
-                                                                Generate
+                                                            <!-- Advanced Generate Button -->
+                                                            <button
+                                                                data-candidate='<%= JSON.stringify(candidate) %>'
+                                                                data-candidate-skills='<%= JSON.stringify(candidateSkills) %>'
+                                                                data-candidate-education='<%= JSON.stringify(education) %>'
+                                                                id="generate-summary-btn"
+                                                                type='button'
+                                                                class="relative flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium py-2 px-6 rounded-full shadow-lg transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                                               >
+                                                                <span id="generate-text" class="flex items-center gap-2">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                                        <path d="M12 2l2.6 5.3L20 8l-4 4 1 5.6L12 14l-5 3 1-5.6-4-4 5.4-.7L12 2z"/>
+                                                                        <path d="M5 19l2-2m10 2l-2-2m-6 2l2-2m6 2l-2-2"/>
+                                                                    </svg>
+                                                                    Generate
+                                                                </span>
+ 
                                                             </button>
                                                         </div>
                                                         
@@ -208,10 +338,10 @@
 
                                                     <input type="text" name="id" value="<%=candidate.id%>" hidden>
                                                 </div>
-                                                <p class="mt-2 text-sm text-gray-500">
+                                                <!-- <p class="mt-2 text-sm text-gray-500">
                                                     Brief description for your profile. URLs are
                                                     hyperlinked.
-                                                </p>
+                                                </p> -->
                                             </div>
                                         </div>
                                         <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
@@ -319,7 +449,7 @@
 
 
             <!-- EDUCATION SECTION -->
-            <section>
+            <section class="mb-10">
                 <div class="container">
                     <div class="mt-4">
                         <div class="md:grid md:grid-cols-3 md:gap-6">
@@ -431,7 +561,6 @@
                                                                         class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300 p-2 bg-white text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-indigo-500"
                                                                     />
 
-                                                                    <input type="text" name="id" value="<%=edu.id%>" hidden>
                                                                 </div>
                                                             </div>
 
@@ -466,121 +595,103 @@
                                                     <% }) %>
 
                                                     <li>
-                                                        <form id="candidate-education-form" class="p-4 border rounded-lg">
-
-                                                            <h1 class=" text-xl italic">Add more education details...</h1>
-
-                                                            <hr class="text-gray-400 my-4">
-
-                                                            <!-- Candidate education form -->
-                                                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                                                <div>
-                                                                    <label class="block text-sm font-medium text-gray-700">
-                                                                        Degree Type
-                                                                    </label>
-                                                                    <select
-                                                                        name="degree_type"
-                                                                        class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300 p-2 bg-white text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-indigo-500">
-                                                                        <option value="">Select Degree Type</option>
-                                                                        <option value="10th">10th</option>
-                                                                        <option value="12th">12th</option>
-                                                                        <option value="Diploma">Diploma</option>
-                                                                        <option value="Undergraduate">Undergraduate</option>
-                                                                        <option value="Postgraduate">Postgraduate</option>
-                                                                        <option value="PhD">PhD</option>
-                                                                    </select>
+                                                        <div class="relative p-1 rounded-lg overflow-hidden">
+                                                            <!-- Flowing Border -->
+                                                            <div class="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 animate-border"></div>
+                                                        
+                                                            <!-- Form Content -->
+                                                            <form id="candidate-education-form" class="relative p-4 bg-white rounded-lg shadow-lg">
+                                                                <h1 class="text-xl italic">Add more education details...</h1>
+                                                                <hr class="text-gray-400 my-4">
+                                                        
+                                                                <!-- Candidate Education Form -->
+                                                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                                    <!-- Degree Type -->
+                                                                    <div>
+                                                                        <label class="block text-sm font-medium text-gray-700">Degree Type</label>
+                                                                        <select
+                                                                            name="degree_type"
+                                                                            class="focus:ring-indigo-500 focus:border-indigo-500 w-full rounded-md border border-gray-300 p-2 bg-white text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-indigo-500">
+                                                                            <option value="">Select Degree Type</option>
+                                                                            <option value="10th">10th</option>
+                                                                            <option value="12th">12th</option>
+                                                                            <option value="Diploma">Diploma</option>
+                                                                            <option value="Undergraduate">Undergraduate</option>
+                                                                            <option value="Postgraduate">Postgraduate</option>
+                                                                            <option value="PhD">PhD</option>
+                                                                        </select>
+                                                                    </div>
+                                                        
+                                                                    <!-- Institution Name -->
+                                                                    <div>
+                                                                        <label class="block text-sm font-medium text-gray-700">Institution Name</label>
+                                                                        <input
+                                                                            type="text"
+                                                                            name="institution_name"
+                                                                            id="institution_name"
+                                                                            class="focus:ring-indigo-500 focus:border-indigo-500 w-full rounded-md border border-gray-300 p-2 bg-white text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-indigo-500"/>
+                                                                    </div>
+                                                        
+                                                                    <!-- Board/University -->
+                                                                    <div>
+                                                                        <label class="block text-sm font-medium text-gray-700">Board/University</label>
+                                                                        <input
+                                                                            type="text"
+                                                                            name="board_university"
+                                                                            id="board_university"
+                                                                            class="focus:ring-indigo-500 focus:border-indigo-500 w-full rounded-md border border-gray-300 p-2 bg-white text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-indigo-500"/>
+                                                                    </div>
+                                                        
+                                                                    <!-- Passing Year -->
+                                                                    <div>
+                                                                        <label class="block text-sm font-medium text-gray-700">Passing Year</label>
+                                                                        <input
+                                                                            type="number"
+                                                                            name="passing_year"
+                                                                            id="passing_year"
+                                                                            class="focus:ring-indigo-500 focus:border-indigo-500 w-full rounded-md border border-gray-300 p-2 bg-white text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-indigo-500"/>
+                                                                    </div>
+                                                        
+                                                                    <!-- Percentage/CGPA -->
+                                                                    <div>
+                                                                        <label class="block text-sm font-medium text-gray-700">Percentage/CGPA</label>
+                                                                        <input
+                                                                            type="number"
+                                                                            name="percentage_cgpa"
+                                                                            id="percentage_cgpa"
+                                                                            class="focus:ring-indigo-500 focus:border-indigo-500 w-full rounded-md border border-gray-300 p-2 bg-white text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-indigo-500"/>
+                                                                    </div>
+                                                        
+                                                                    <!-- Specialization -->
+                                                                    <div>
+                                                                        <label class="block text-sm font-medium text-gray-700">Specialization</label>
+                                                                        <input
+                                                                            type="text"
+                                                                            name="specialization"
+                                                                            id="specialization"
+                                                                            class="focus:ring-indigo-500 focus:border-indigo-500 w-full rounded-md border border-gray-300 p-2 bg-white text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-indigo-500"/>
+                                                                    </div>
                                                                 </div>
                                                         
-                                                                <div>
-                                                                    <label class="block text-sm font-medium text-gray-700">
-                                                                        Institution Name
-                                                                    </label>
-                                                                    <input
-                                                                        type="text"
-                                                                        name="institution_name"
-                                                                        value=""
-                                                                        id="institution_name"
-                                                                        class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300 p-2 bg-white text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-indigo-500"
-                                                                    />
+                                                                <!-- Form Buttons -->
+                                                                <div class="mt-4 flex justify-end space-x-2">
+                                                                    <button
+                                                                        type="button"
+                                                                        id="reset-education-details-btn"
+                                                                        class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400">
+                                                                        Reset
+                                                                    </button>
+                                                        
+                                                                    <button
+                                                                        type="button"
+                                                                        id="add-education-details-btn"
+                                                                        class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                                        Add Education
+                                                                    </button>
                                                                 </div>
+                                                            </form>
+                                                        </div>
                                                         
-                                                                <div>
-                                                                    <label class="block text-sm font-medium text-gray-700">
-                                                                        Board/University
-                                                                    </label>
-                                                                    <input
-                                                                        type="text"
-                                                                        name="board_university"
-                                                                        value=""
-                                                                        id="board_university"
-                                                                        class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300 p-2 bg-white text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-indigo-500"
-                                                                    />
-                                                                </div>
-                                                        
-                                                                <div>
-                                                                    <label class="block text-sm font-medium text-gray-700">
-                                                                        Passing Year
-                                                                    </label>
-                                                                    <input
-                                                                        type="number"
-                                                                        name="passing_year"
-                                                                        value=""
-                                                                        id="passing_year"
-                                                                        class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300 p-2 bg-white text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-indigo-500"
-                                                                    />
-                                                                </div>
-                                                        
-                                                                <div>
-                                                                    <label class="block text-sm font-medium text-gray-700">
-                                                                        Percentage/CGPA
-                                                                    </label>
-                                                                    <input
-                                                                        type="number"
-                                                                        name="percentage_cgpa"
-                                                                        value=""
-                                                                        id="percentage_cgpa"
-                                                                        class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300 p-2 bg-white text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-indigo-500"
-                                                                    />
-                                                                </div>
-                                                        
-                                                                <div>
-                                                                    <label class="block text-sm font-medium text-gray-700">
-                                                                        Specialization
-                                                                    </label>
-                                                                    <input
-                                                                        type="text"
-                                                                        name="specialization"
-                                                                        value=""
-                                                                        id="specialization"
-                                                                        class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300 p-2 bg-white text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-indigo-500"
-                                                                    />
-                                                        
-                                                                    <input type="text" name="candidate_id_fk" value="<%=candidate.id%>" hidden>
-                                                                </div>
-                                                            </div>
-                                                        
-                                                            <!-- Form buttons -->
-                                                            <div class="mt-4 flex justify-end space-x-2">
-
-                                                                <button
-                                                                    type="button"
-                                                                    id="reset-education-details-btn"
-                                                                    class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-gray-500 hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400"
-                                                                >
-                                                                    Reset
-                                                                </button>
-
-                                                               
-                                                                <button
-                                                                    type="button"
-                                                                    id="add-education-details-btn"
-                                                                    class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                                                    >
-                                                                    Add Education
-                                                                </button>
-                                                            </div>
-                                                        
-                                                        </form>
                                                         
                                                     </li>
                                                     </ul>
@@ -595,6 +706,12 @@
                     </div>
                 </div>
             </section>
+
+            <!-- Floating See Resume Anchor Button -->
+            <a href="/resume/c/<%= candidate.id %>" target="_blank"
+                class="fixed bottom-6 right-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                👀 See Resume
+            </a>
 
 
         </main>

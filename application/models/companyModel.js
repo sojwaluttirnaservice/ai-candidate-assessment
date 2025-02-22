@@ -2,6 +2,37 @@ const db = require("../config/db.connect");
 
 const companyModel = {
 
+
+    add: (companyData) => {
+        let q = `
+                INSERT INTO company (
+                            company_name,
+                            company_email,
+                            company_password,
+                            company_contact_number,
+                            company_address,
+                            company_established_year,
+                            company_website,
+                            company_hr_name,
+                            company_hr_email,
+                            company_hr_contact_number
+                        ) VALUES (?)
+        `
+        const insertArray = [
+            companyData.company_name,
+            companyData.company_email,
+            companyData.company_password,
+            companyData.company_contact_number,
+            companyData.company_address,
+            companyData.company_established_year,
+            companyData.company_website,
+            companyData.company_hr_name,
+            companyData.company_hr_email,
+            companyData.company_hr_contact_number
+        ]
+        return db.query(q, [insertArray]);
+    },
+
     getCompanyByEmail: (email) => {
         let q = `SELECT * FROM company WHERE company_email = ?`
         return db.query(q, [email])
