@@ -44,7 +44,9 @@ const candidateController = {
     }),
 
     renderCandidateDashboardPage: asyncHandler(async (req, res) => {
-        renderPage(res, 'candidate/candidate-dashboard-page.ejs', { title: 'Dashboard', candidate: req.session.candidate })
+
+        const [_shortlistedCompanies] = await candidateModel.getCandidateShortlistedCompanies(req?.session?.candidate?.id)
+        renderPage(res, 'candidate/candidate-dashboard-page.ejs', { title: 'Dashboard', candidate: req.session.candidate, shortlistedFor: _shortlistedCompanies.length })
     }),
 
 
@@ -212,11 +214,11 @@ const candidateController = {
             return sendResponse(res, 400, false, "Candidate and job id are required")
         }
 
-        
-        const [_existingEntries, _] =await candidateModel.shortlistedEntries(jobId, candidateId)
-        
+
+        const [_existingEntries, _] = await candidateModel.shortlistedEntries(jobId, candidateId)
+
         console.log(_existingEntries);
-        
+
         if (_existingEntries.length > 0) {
             return sendResponse(res, 409, false, "Candidate is already shortlisted for this job")
         }

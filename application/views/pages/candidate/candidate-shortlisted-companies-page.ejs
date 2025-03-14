@@ -1,6 +1,3 @@
-
-<!-- This is just for referecne, copy this layout for company pages -->
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -8,25 +5,53 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title><%= title %></title>
 
-        <!-- Common links -->
-        <%- include("../../common/common-links.ejs")%>
+        <!-- Common Links -->
+        <%- include("../../common/common-links.ejs") %>
 
-        <!-- Company common links -->
+        <!-- Common Scripts -->
+        <%- include("../../common/common-scripts.ejs") %>
 
-        <!-- Common scripts -->
-        <%-include("../../common/common-scripts.ejs")%>
+        <!-- Candidate-Specific Scripts -->
+        <%- include("../../common/common-candidate-scripts.ejs") %>
 
-        <!-- Company common scripts -->
-        <%- include("../../common/common-candidate-scripts.ejs")%>
-
+        <!-- Page-Specific JavaScript -->
         <script
-            src="/javascripts/handlers/candidate/candidateDashboarddHandler.js"
+            src="/javascripts/handlers/candidate/candidateDashboardHandler.js"
             type="module"
             defer></script>
     </head>
-    <body>
-        <%- include("../../components/navs/candidate-navbar.ejs")%>
+    <body class="bg-gray-100">
+        <!-- Candidate Navbar -->
+        <%- include("../../components/navs/candidate-navbar.ejs") %>
 
-        <main></main>
+        <main class="max-w-7xl mx-auto py-10 px-6">
+            <h1 class="text-2xl font-bold text-gray-800 mb-6">Shortlisted Jobs</h1>
+
+            <!-- Handle empty shortlistedCompanies list -->
+            <% if (!shortlistedCompanies || shortlistedCompanies.length === 0) { %>
+            <div class="bg-white p-6 rounded-lg shadow text-center">
+                <p class="text-gray-600 text-lg">You have not been shortlisted for any jobs yet.</p>
+            </div>
+            <% } else { %>
+            <div class="grid gap-6 md:grid-cols-2">
+                <% shortlistedCompanies.forEach(function(job) { %>
+                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-2"><%= job.job_title %></h2>
+                    <p class="text-gray-600"><strong>Company:</strong> <%= job.company_name %></p>
+                    <p class="text-gray-600"><strong>Location:</strong> <%= job.job_location %></p>
+                    <p class="text-gray-600">
+                        <strong>Salary:</strong>
+                        <% if (job.job_salary) { %> $<%= job.job_salary %> <% } else { %> Not
+                        Disclosed <% } %>
+                    </p>
+                    <p class="text-gray-600"><strong>Type:</strong> <%= job.job_type %></p>
+                    <p class="text-gray-500 text-sm mt-2">
+                        <strong>Last Date to Apply:</strong> <%= job.last_date_to_apply %>
+                    </p>
+                </div>
+                <% }) %>
+            </div>
+            <% } %>
+        </main>
     </body>
 </html>

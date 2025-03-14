@@ -233,7 +233,37 @@ const candidateModel = {
         console.log(jobId, candidateId);
         let q = `SELECT * FROM shortlisted_candidate_relation WHERE job_id_fk = ? AND candidate_id_fk =?`
         return db.query(q, [jobId, candidateId])
+    },
+
+    getCandidateShortlistedCompanies: (candidateId) => {
+        let q = `
+            SELECT 
+                j.id AS job_id,
+                j.job_title,
+                j.job_description,
+                j.job_salary,
+                j.job_location,
+                j.job_type,
+                j.job_status,
+                j.last_date_to_apply,
+                j.createdAt AS job_posted_at,
+                c.id AS company_id,
+                c.company_name
+            FROM 
+                shortlisted_candidate_relation scr
+            JOIN 
+                job_opening j ON scr.job_id_fk = j.id
+            JOIN 
+                company c ON j.company_id_fk = c.id
+            WHERE 
+                scr.candidate_id_fk = ?
+            ORDER BY 
+                j.createdAt DESC;
+        `;
+
+        return db.query(q, [candidateId]);
     }
+
 
 }
 
