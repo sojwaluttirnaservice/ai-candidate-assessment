@@ -1,8 +1,13 @@
 @import 'tailwindcss';
 
-
 body {
-    position: relative;;
+    position: relative;
+}
+
+button:disabled {
+    background-color: black !important;
+    cursor: not-allowed !important;
+    opacity: 0.5 !important;
 }
 
 @layer components {

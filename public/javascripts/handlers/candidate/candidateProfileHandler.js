@@ -247,12 +247,12 @@ $(() => {
         if (!candidate || !skills || !education) {
             throw new Error("Candidate, skills, and education details are required.");
         }
-    
+
         const skillList = skills.map(skill => skill.skill_name).join(", ") || "No skills listed";
         const educationList = education.map(edu =>
             `${edu.degree_type} in ${edu.specialization || "General"}`
         ).join(", ") || "No education details provided";
-    
+
         return `
         Generate a one-line, first-person career objective for the following candidate profile:
         
@@ -264,7 +264,7 @@ $(() => {
         The objective should be clear, concise, and highlight career goals in a single short sentence. Avoid headings or labels in the output.
         `;
     }
-    
+
 
 
     async function handleGenerateObjective(e) {
@@ -366,6 +366,7 @@ $(() => {
 
 
     async function handleGenerateSummary(e) {
+
         e.preventDefault();
 
         const button = $(this); // Capture the button
