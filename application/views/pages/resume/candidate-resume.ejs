@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title><%= title %></title>
+
+        <!-- Common links -->
+        <%- include("../../common/common-links.ejs")%>
+
+        <!-- Common scripts -->
+        <%-include("../../common/common-scripts.ejs")%>
+
+        <script src="/javascripts/handlers/resume/resumePageHandler.js" type="module" defer></script>
+        
+
+    </head>
+    <body class="bg-gradient-to-r from-blue-100 to-purple-200 p-6">
+        <!-- Floating Download PDF Button -->
+        <button id="download-pdf-btn"
+        hidden
+        class="fixed top-4 right-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full shadow-lg transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        📥 Download PDF
+        </button>
+
+        <div class="max-w-4xl mx-auto bg-white shadow-2xl rounded-lg p-10 border-t-8 border-blue-500 space-y-10">
+            
+            <!-- Header Section -->
+            <div class="border-b pb-6">
+                <h1 class="text-4xl font-extrabold text-gray-900 mb-2">
+                    <%= candidate?.name || 'Candidate Name' %>
+                </h1>
+                <p class="text-lg text-gray-700 font-semibold">
+                    <%= candidate?.candidate_objective || 'Aspiring Professional' %>
+                </p>
+                <div class="flex items-center justify-between">
+                    <p class="text-gray-600 mt-2 flex items-center gap-4">
+                        <span>
+                            <i class="fas fa-envelope text-indigo-500"></i>
+                            <%= candidate?.email || 'your.email@example.com' %>
+                        </span>
+                        <span>
+                            <i class="fas fa-phone-alt text-indigo-400"></i>
+                            <%= candidate?.mobile || '+123 456 7890' %>
+                        </span>
+                    </p>
+                    <p class="text-gray-600 flex items-center">
+                        <i class="fas fa-briefcase text-blue-500 mr-1"></i>
+                        Experience: <%= candidate?.years_of_experience || '0' %> Years
+                    </p>
+                </div>
+                
+            </div>
+
+            <!-- Summary Section -->
+            <div>
+                <h2 class="text-2xl font-bold text-gray-900 border-b-2 border-blue-500 pb-2">Summary</h2>
+                <p class="text-gray-700 leading-relaxed mt-3">
+                    <%= candidate?.candidate_summary || 'A dedicated professional with a passion for growth and innovation.' %>
+                </p>
+            </div>
+
+           <!-- Education Section -->
+<div>
+    <h2 class="text-2xl font-bold text-gray-900 border-b-2 border-blue-500 pb-2">Education</h2>
+    <div class="space-y-4 mt-3">
+        <% if (candidateEducation && candidateEducation.length > 0) { %>
+            <% candidateEducation.forEach(function(edu) { %>
+                <div class="flex justify-between items-start  pb-3">
+                    <!-- Left Side: Degree, Specialization, Institution -->
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800">
+                            <%= edu.degree_type %> in <%= edu.specialization || 'General' %>
+                        </h3>
+                        <p class="text-gray-600 font-medium">
+                            <%= edu.institution_name %> | <%= edu.board_university || 'N/A' %>
+                        </p>
+                    </div>
+
+                    <!-- Right Side: Passing Year and Percentage -->
+                    <div class="text-right">
+                        <p class="text-gray-700"><strong>Passing Year:</strong> <%= edu.passing_year %></p>
+                        <p class="text-gray-700"><strong>Percentage:</strong> <%= edu.percentage_cgpa %>%</p>
+                    </div>
+                </div>
+            <% }); %>
+        <% } else { %>
+            <p class="text-gray-700">No education details provided.</p>
+        <% } %>
+    </div>
+</div>
+
+
+            <!-- Skills Section -->
+            <div>
+                <h2 class="text-2xl font-bold text-gray-900 border-b-2 border-blue-500 pb-2">Skills</h2>
+                <div class="flex flex-wrap gap-3 mt-3">
+                    <% if (candidateSkills && candidateSkills.length > 0) { %>
+                        <% candidateSkills.forEach(function(skill) { %>
+                            <span class="bg-blue-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-md">
+                                <%= skill.skill_name %>
+                            </span>
+                        <% }); %>
+                    <% } else { %>
+                        <p class="text-gray-700">No skills listed.</p>
+                    <% } %>
+                </div>
+            </div>
+
+            <!-- Declaration Section -->
+            <div>
+                <h2 class="text-2xl font-bold text-gray-900 border-b-2 border-blue-500 pb-2">Declaration</h2>
+                <p class="text-gray-700 italic mt-3">
+                    I hereby declare that the above information is true and correct to the best of my knowledge and belief.
+                </p>
+            </div>
+            
+            <% if (company && Object.keys(company).length > 0) { %>
+
+
+                
+            <!-- Modal -->
+            <div id="shortlist-candidate-modal" data-role="modal" class="fixed inset-0 hidden  flex items-center justify-center z-[500]">
+                <div class="bg-white border border-gray-400 shadow-lg rounded-lg p-6  w-[350px] md:max-w-md ">
+                    <form id="shortlist-candidate-form">
+                        <h2 class="text-lg font-semibold mb-4">Select the role of shortlisting</h2>
+
+                        
+                        <select name="job_id_fk" id="job_id_fk" 
+                        class="block w-full text-sm text-gray-700 border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500"
+
+                        >
+
+                        <option value="" value="">--Select Role--</option>
+                            
+                         <% jobs.forEach(function(job) { %>
+                            <option value="<%= job.id %>"> <%= job.job_title %></option>
+                         <% }); %>
+                         
+                        </select>
+                        <input type="text" name="candidate_id_fk" value="<%= candidate.id %>" hidden>
+
+                        <div class="mt-4 flex justify-end space-x-2">
+                            <button
+                                type="button"
+                                data-role="close-modal-btn"
+                                class="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400 focus:outline-none">
+                                Close
+                            </button>
+                            <button
+                                type="button"
+                                id="shortlist-candidate-btn"
+                                class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                Shortlist Candidate
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+                <!-- Floating Shortlist Button -->
+                <button
+                    data-role="open-modal-btn"
+                    data-target-modal="shortlist-candidate-modal"
+                   
+                    class="fixed bottom-6 right-6 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    ⭐ Shortlist
+                </button>
+            <% } %>
+            
+        </div>
+    </body>
+
+    <!-- company -->
+
+   <!-- Load html2pdf.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+ 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const downloadBtn = document.getElementById("download-pdf-btn");
+
+        if (downloadBtn) {
+            downloadBtn.addEventListener("click", function () {
+                const element = document.querySelector(".max-w-4xl"); // Your resume container
+
+                if (!element) {
+                    alert("Resume section not found!");
+                    return;
+                }
+
+                // PDF options
+                const options = {
+                    margin: 10,
+                    filename: `<%= candidate?.name ? candidate.name.replace(/\s+/g, "_") : "Resume" %>.pdf`,
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
+
+                // Generate PDF
+                html2pdf().set(options).from(element).save().catch(err => {
+                    console.error("Error generating PDF:", err);
+                    alert("Failed to generate PDF. Please try again.");
+                });
+            });
+        } else {
+            console.error("Download button not found.");
+        }
+    });
+</script>
+
+</html>

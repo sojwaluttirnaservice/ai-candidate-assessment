@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title><%= title %></title>
+
+        <!-- Common Links -->
+        <%- include("../../common/common-links.ejs") %>
+
+        <!-- Company-Specific Links -->
+
+        <!-- Common Scripts -->
+        <%- include("../../common/common-scripts.ejs") %>
+
+        <!-- Candidate-Specific Scripts -->
+        <%- include("../../common/common-candidate-scripts.ejs") %>
+
+        <!-- Page-Specific JavaScript -->
+        <script
+            src="/javascripts/handlers/candidate/candidateDashboardHandler.js"
+            type="module"
+            defer></script>
+    </head>
+    <body class="bg-gray-100">
+        <!-- Candidate Navbar -->
+        <%- include("../../components/navs/candidate-navbar.ejs") %>
+
+        <main class="max-w-4xl mx-auto py-10 px-6">
+            <!-- Adjusted max width -->
+            <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">Candidate Dashboard</h1>
+
+            <!-- Shortlisted Companies Count -->
+            <div class="bg-white p-6 rounded-lg shadow text-center max-w-sm mx-auto">
+                <!-- Limited max width -->
+                <h2 class="text-lg font-semibold text-gray-700">Shortlisted Companies</h2>
+                <p class="text-3xl font-bold text-blue-600 mt-2"><%=shortlistedFor%></p>
+                <!-- Hardcoded Value -->
+            </div>
+        </main>
+    </body>
+</html>

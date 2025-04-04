@@ -1,0 +1,30 @@
+/*
+INSERT INTO candidate (name, email, mobile, password, gender, createdAt, updatedAt) VALUES
+('Aarav Patel', 'aarav.patel@example.com', '9876543210', 'password123', 'Male', NOW(), NOW()),
+('Isha Sharma', 'isha.sharma@example.com', '9988776655', 'securePass1', 'Female', NOW(), NOW()),
+('Vikram Singh', 'vikram.singh@example.com', '9812345678', 'password1234', 'Male', NOW(), NOW()),
+('Neha Reddy', 'neha.reddy@example.com', '9900123456', 'NehaPass987', 'Female', NOW(), NOW()),
+('Rahul Verma', 'rahul.verma@example.com', '9666778899', 'Rahul1234', 'Male', NOW(), NOW()),
+('Priya Gupta', 'priya.gupta@example.com', '9777883344', 'priya9876', 'Female', NOW(), NOW()),
+('Ankit Mehta', 'ankit.mehta@example.com', '9600112233', 'Ankit2021', 'Male', NOW(), NOW()),
+('Ritu Yadav', 'ritu.yadav@example.com', '9500223344', 'Ritu1234', 'Female', NOW(), NOW()),
+('Sameer Khan', 'sameer.khan@example.com', '9822334455', 'Sameer2021', 'Male', NOW(), NOW()),
+('Aarti Nair', 'aarti.nair@example.com', '9833445566', 'AartiPass2021', 'Female', NOW(), NOW()),
+('Rajesh Kumar', 'rajesh.kumar@example.com', '9934556677', 'Rajesh4567', 'Male', NOW(), NOW()),
+('Suman Agarwal', 'suman.agarwal@example.com', '9344556677', 'Suman6789', 'Female', NOW(), NOW()),
+('Karan Joshi', 'karan.joshi@example.com', '9098765432', 'KaranPass12', 'Male', NOW(), NOW()),
+('Pooja Soni', 'pooja.soni@example.com', '9222333444', 'Pooja5678', 'Female', NOW(), NOW()),
+('Deepak Shah', 'deepak.shah@example.com', '9300114455', 'Deepak987', 'Male', NOW(), NOW()),
+('Sanya Chauhan', 'sanya.chauhan@example.com', '9099887766', 'Sanya1234', 'Female', NOW(), NOW()),
+('Ravi Patil', 'ravi.patil@example.com', '9911223344', 'RaviPass99', 'Male', NOW(), NOW()),
+('Seema Bhat', 'seema.bhat@example.com', '9122334455', 'Seema2021', 'Female', NOW(), NOW()),
+('Rohit Deshmukh', 'rohit.deshmukh@example.com', '9400222333', 'Rohit4567', 'Male', NOW(), NOW()),
+('Anjali Joshi', 'anjali.joshi@example.com', '9600332211', 'AnjaliPass12', 'Female', NOW(), NOW()),
+('Gaurav Dubey', 'gaurav.dubey@example.com', '9811222333', 'Gaurav@2021', 'Male', NOW(), NOW()),
+('Kavita Pillai', 'kavita.pillai@example.com', '9988774433', 'KavitaPass1', 'Female', NOW(), NOW()),
+('Arvind Kumar', 'arvind.kumar@example.com', '9799883344', 'Arvind12345', 'Male', NOW(), NOW()),
+('Tanuja Agarwal', 'tanuja.agarwal@example.com', '9433222111', 'Tanuja1234', 'Female', NOW(), NOW()),
+('Jatin Arora', 'jatin.arora@example.com', '9200113344', 'Jatin@2021', 'Male', NOW(), NOW()),
+('Sana Sheikh', 'sana.sheikh@example.com', '9811226677', 'SanaPass2021', 'Female', NOW(), NOW());
+
+*/
