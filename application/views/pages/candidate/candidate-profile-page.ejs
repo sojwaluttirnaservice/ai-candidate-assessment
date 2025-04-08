@@ -561,6 +561,9 @@
                                                                         class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md sm:text-sm border-gray-300 p-2 bg-white text-gray-900 placeholder-gray-400 outline-none focus:ring-2 focus:ring-indigo-500"
                                                                     />
 
+
+                                                                    <input type="text" name="id" value="<%=edu.id%>">
+
                                                                 </div>
                                                             </div>
 
@@ -568,7 +571,7 @@
                                                             <div class="mt-4 flex justify-end space-x-2">
                                                                 <button
                                                                     type="button"
-                                                                  
+                                                                    data-education-id="<%= edu.id %>" 
                                                                     data-form-index="<%=index%>"
                                                                     class="update-education-details-btn inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
                                                                     >

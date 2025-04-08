@@ -13,7 +13,7 @@ const educationController = {
 
 
         console.log(_existingEducationEntryForCandidateDegree)
-        if(_existingEducationEntryForCandidateDegree.length > 0){
+        if (_existingEducationEntryForCandidateDegree.length > 0) {
             return sendResponse(res, 400, false, `Education details of ${degree_type} already exists`);
         }
 
@@ -39,6 +39,11 @@ const educationController = {
             return sendResponse(res, 400, false, 'All Fields required fields');
         }
 
+
+
+
+        console.log('hiiiii')
+        console.log(req.body)
         if (!id) {
             return sendResponse(res, 400, false, 'Education ID is required');
         }
@@ -54,6 +59,9 @@ const educationController = {
 
     deleteEducation: asyncHandler(async (req, res) => {
         const { id } = req.body;
+
+
+
 
         if (!id) {
             return sendResponse(res, 400, false, 'Education ID is required');
